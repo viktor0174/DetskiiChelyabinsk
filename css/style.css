@@ -1,0 +1,66 @@
+
+			@font-face {
+				font-family: 'GOSTtypeA';
+				src:
+					local('GOSTtypeA'),					 		
+					url('/Content/Detskij-CHelyabinsk/css/GOSTtypeA.ttf');				
+			}
+						
+			body { margin: 10px auto; width: 690px;}
+			#menu_children_Chelyabinsk img {border: 0px;}
+						
+			.obl { 
+				background: transparent url(/Content/Detskij-CHelyabinsk/media/obl.png) repeat-x;
+				width:114px; 
+				height: 80px; 
+			}
+
+			.ZiroBlock		{ display: block; height: 103px; background:url(/Content/Detskij-CHelyabinsk/media/1.png)no-repeat; }
+			.FirstBlock		{ display: block; height: 194px; background:url(/Content/Detskij-CHelyabinsk/media/2.png)no-repeat; }
+			.SecondBlock	{ display: block; height: 148px; background:url(/Content/Detskij-CHelyabinsk/media/3.png)no-repeat; display: none; }
+			.ThirdBlock		{ display: block; height:  60px; background:url(/Content/Detskij-CHelyabinsk/media/4.png)no-repeat; display: none;}
+
+			.FirstBlockInside { height:192px; padding: 1px; font-family: GOSTtypeA;}
+			.FirstBlockInside ul { margin-left: -30px; font-size: 17px; margin-top: 30px;}
+			.FirstBlockInside ul li { list-style-type: none; float: left; width: 90px; height: 150px;   text-align:center;  padding: 0px; margin: 2.7px;  word-wrap: break-word; }
+			.FirstBlockInside ul li a { text-decoration:none;}
+			.FirstBlockInside img:hover, img:focus { width: 87px;}
+
+			.SecondBlockInside { height:192px; padding: 1px; font-family: GOSTtypeA; }
+			.SecondBlockInside ul { margin-left: -30px; font-size: 17px; margin-top: 0px; padding-top: 15px;}
+			.SecondBlockInside ul li { list-style-type: none; float: left; width: 90px; height: 150px;   text-align:center;  padding: 0px; margin: 2.7px;  word-wrap: break-word; }
+			.SecondBlockInside ul li a { text-decoration:none;}
+			.SecondBlockInside img:hover, img:focus { width: 57px;}
+			.SecondBlockName {text-align:center; padding-top:5px; font-size: 30px; font-weight:bold; color:#4747FF; opacity: 0.7;}
+
+			#ThirdBlockName {  font-family: GOSTtypeA; font-size: 30px; color:#4747FF; font-weight:bold; opacity: 0.7;}
+			/* Container Section */
+			#main_container_section {
+				margin-top:5px;
+			}
+			.object {
+				float:left; 
+				padding: 10px;
+				display:block;
+				margin: 0;
+			}
+			.object img {
+				width: 150px;
+				height: 150px;	
+			}
+			.object img:hover, .object img:focus  {
+
+			}
+			.object .titl {
+				padding-top:5px;
+				font-size: 17px;
+				font-weight:bold;
+			}
+			.desc { 
+				padding-top:5px;
+			}
+			.loading {
+				background:url(/Upload/images/loading.gif);
+				width:16px;
+				height:16px;
+			}

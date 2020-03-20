@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd" >
+<html >
+	<head>		
+		<title>Меню | детский Челябинск</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="description" content="Проект <<Детский Челябинск>> "> 
+		<meta name="Keywords" content="детские центры челябинск, детские центры, библиотеки, музыкальные школы, парк, сквер, зоопарк, театр, кино, культурно-досугоые учреждения, развлекательные центры, музеи, выставки, карта"> 
+		<link rel="stylesheet" href="css/style.css" media="screen">
+		<style type="text/css">
+			/* The Code */
+			.obl { 
+				background: transparent url(/Content/Detskij-CHelyabinsk/media/obl.png) repeat-x;
+				width:114px; 
+				height: 80px; 
+			}
+		</style>		
+		<script type="text/javascript" src="js/jquery-1.6.3.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="js/jquery.spritely-0.6.js" charset="utf-8"></script>
+		<script type="text/javascript" src="js/jquery.jQueryRotate.js" charset="utf-8"></script>
+		<script type="text/javascript" >
+			
+			
+			
+			// //////////
+			var arrNameArea = [ 'Выберите район', 'Центральный', 'Калининский', 'Курчатовский', 'Ленинский', 'Металлургический', 'Советский', 'Тракторозаводский' ];
+			var arrNameSection = [ 'Выберите раздел', 'Библиотеки', 'Школы искусств', 'Парки, Скверы и Зоопарки', 'Театры и кино', 'Культурно-досуговые учреждения', 'Музеи и выставки', 'Центры детского творчества' ];
+			
+			// Finction set the Cookies
+			function setCookie (name, value, expires, path, domain, secure) {
+				  document.cookie = name + "=" + escape(value) +
+					((expires) ? "; expires=" + expires : "") +
+					((path) ? "; path=" + path : "") +
+					((domain) ? "; domain=" + domain : "") +
+					((secure) ? "; secure" : "");
+			}
+			// Finction get the Cookies
+			function getCookie(name) {
+				var cookie = " " + document.cookie;
+				var search = " " + name + "=";
+				var setStr = null;
+				var offset = 0;
+				var end = 0;
+				if (cookie.length > 0) {
+					offset = cookie.indexOf(search);
+					if (offset != -1) {
+						offset += search.length;
+						end = cookie.indexOf(";", offset)
+						if (end == -1) {
+							end = cookie.length;
+						}
+						setStr = unescape(cookie.substring(offset, end));
+					}
+				}
+				return(setStr);
+			}
+			// Set Cookies The Section
+			function setSection(val) {				
+				// Set Cookies Menu 
+				setCookie("ItemMenuLink", val, "", "/");
+				// Reset Cookies				
+				setArea('');
+				var flag = false;
+				document.getElementById('ThirdBlockName').innerHTML = arrNameArea[0];				
+				var cont = parent.document.getElementById('Section').innerHTML = '<center><h3>Выбран раздел - '+currSection(val)+'</h3></center>';				
+				
+				parent.document.getElementById("map_dch").innerHTML = '';
+				var script = document.createElement('script');
+					script.setAttribute('type', 'text/javascript');
+				
+				switch(val){
+					case 'Biblioteki':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=3u-f0PqKHAciUMjBEuYv8J4fr8UzDVQG&width=600&height=450');						
+					break;
+					case 'Muzykalnyeshkoly':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=1FR0z_pEt_CAgwHi-L0y4zThC15DzzHR&width=600&height=450');						
+					break;
+					case 'Shkolyiskusstv':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=S2nYWdDa0BtcfCY8FCv5qyM7VA5gkxce&width=600&height=450');
+					break;
+					case 'Teatryikino':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=G8MlGFfDS-LIStimL46DlwXocI8PXkYa&width=600&height=450');
+					break;
+					case 'ParkiSkveryiZooparki':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=GB18VmXHOI9ejofZ2sdwwN4NNy-JNCgU&width=600&height=450');
+					break;
+					case 'Muzeiivystavki':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=EcY6gIbe0K9sCSz-EQGWR1SPbcpxVLTE&width=600&height=450');
+					break;
+					case 'Kulturnodosugovyeuchrezhdeniy':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=XLLjyyGvb2Xzf0ukCyVmxU5tXyy86M1N&width=600&height=450');
+					break;
+					case 'Centrydetskogotvorchestva':
+						script.setAttribute('src', 'https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=xmRDE3Xlo7KtvinOh3xS4aoefSWgjWDf&width=600&height=450');
+					break;							
+				}				
+				parent.document.getElementById("map_dch").appendChild(script);				
+				
+			}
+			// Set Cookies The Area
+			function setArea(val) {
+				setCookie("ItemArea", val, "", "/");
+			}
+		
+			// JQery
+			$(document).ready(function() {				
+				/* The Sun */
+				var angle = 0;
+				setInterval(function() {
+					  angle+=-(0.2);
+					  $("#sun").rotate(angle);
+				},30);
+				/* END The Sun */				
+				
+			//	var dd = $("#mdch").parent();
+				
+				var getCokieArea = getCookie("ItemArea");
+				
+				if(getCokieArea != "" && getCokieArea != null){
+					$(".SecondBlock").animate({height: "show"}, 500);
+					$(".ThirdBlock").animate({height: "show"},  500);
+					districtOver(getCokieArea);
+				} else {
+					$(".SecondBlock").animate({height: "hide"}, 1);
+					$(".ThirdBlock").animate({height: "hide"},  1);
+				}				
+				
+				var getCokieMenu = getCookie("ItemMenuLink");
+				var pos_ = positionArrow(getCokieMenu);
+				document.getElementById('arrow').style.marginLeft = pos_+"px";
+				
+				/* The Menu */
+				$(".FirstBlock .FirstBlockInside ul li").click(function() {
+					var getCokieMenuPos = getCookie("ItemMenuLink");
+					var pos = positionArrow(""+getCokieMenuPos+"");					
+					$("#arrow").animate({marginLeft: ""+pos+"px"}, 500);
+					var block_content = window.parent.document.getElementById("block_content");
+					// The movement of the block
+					if($(".SecondBlock").css("display") == "none") {
+						$(".SecondBlock").animate({height: "show"}, 500);
+						$(".ThirdBlock").animate({height: "show"},  500);
+						$(block_content).animate({height: "hide"},  500);
+					} else {						
+						$(block_content).animate({height: "hide"},  500);
+						$(".SecondBlock").animate({height: "hide"}, 500);
+						$(".ThirdBlock").animate({height: "hide"},  500);
+						
+						// $(".main_container_section").animate({height: "hide"},  500);						
+						var procreator = window.parent.document.getElementById("main_container_section");
+						$(procreator).animate({height: "hide"},  500);
+						
+						$(".SecondBlock").animate({height: "show"}, 500);
+						$(".ThirdBlock").animate({height: "show"},  500);
+						$("#ThirdBlockName").animate({height: "hide"},  500);
+						$("#ThirdBlockName").animate({height: "show"},  500);						
+					}
+				});
+				/* END The Menu */
+				/* The Cloud */
+				$('#obl').pan({fps: 15, speed: 1, dir: 'left', depth: 10});			
+				/* END The Cloud */				
+			});			
+			function LocationSelected(area) {
+				// Get Cookies the Section
+				var lock = getCookie("ItemMenuLink");
+				// Set Cookies The Area
+				setArea(area);
+				// Redirect uri
+				window.parent.location.href = 'http://kultura174.ru/htmlpages/Show/DetskijCHelyabinsk/'+lock+'/'+area+'';
+			}
+			function districtOver(name) {
+				var current_element = document.getElementById('ThirdBlockName');
+				var nameArea = generateNameArea(name)
+				current_element.innerHTML = nameArea;
+			}
+			function districtOut() {				
+				var current_element = document.getElementById('ThirdBlockName');				
+				var nameArea = generateNameArea(getCookie("ItemArea"))
+				current_element.innerHTML = nameArea;				
+			}
+			// Function generate name The Area
+			function generateNameArea(val){
+				if (val == 'undefined' || val == '')	return arrNameArea[0];
+				if (val == 'Centralnyj') 				return arrNameArea[1];
+				if (val == 'kalininskij') 				return arrNameArea[2];
+				if (val == 'Kurchatovskij') 			return arrNameArea[3];
+				if (val == 'Leninskij') 				return arrNameArea[4];
+				if (val == 'Metallurgicheskij')			return arrNameArea[5];
+				if (val == 'Sovetskij') 				return arrNameArea[6];
+				if (val == 'Traktorozavodskij') 		return arrNameArea[7];
+			}
+			function positionArrow(val) {				
+				if (val == 'undefined' || val == '')	return 40;
+				if (val == 'Biblioteki') 				return 40;
+				if (val == 'Shkolyiskusstv') 			return 140;
+				if (val == 'ParkiSkveryiZooparki') 		return 232;
+				if (val == 'Teatryikino') 				return 330;
+				if (val == 'Kulturnodosugovyeuchrezhdeniy') return 425;
+				if (val == 'Muzeiivystavki') 			return 520;
+				if (val == 'Centrydetskogotvorchestva') return 620;
+			}			
+			function currSection(val) {				
+				if (val == 'undefined' || val == '')	return arrNameSection[0];
+				if (val == 'Biblioteki') 				return arrNameSection[1];
+				if (val == 'Shkolyiskusstv') 			return arrNameSection[2];
+				if (val == 'ParkiSkveryiZooparki') 		return arrNameSection[3];
+				if (val == 'Teatryikino') 				return arrNameSection[4];
+				if (val == 'Kulturnodosugovyeuchrezhdeniy') return arrNameSection[5];
+				if (val == 'Muzeiivystavki') 			return arrNameSection[6];
+				if (val == 'Centrydetskogotvorchestva') return arrNameSection[7];
+			}
+		</script>
+		<!-- <script type="text/javascript" src="http://kultura174.ru/Content/relax_park/jquery-ui-1.10.4.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="js/script.js" ></script> -->
+	</head>
+	<body>
+		<header id="menu_children_Chelyabinsk">
+			<div style="position: absolute; padding-left: 580px; width:110px; height: 75px; overflow:hidden; border:solid 0px red; margin-top: 20px;" >
+				<img src="media/sun.png" id="sun" width="210px" height="210px" style="margin-top: -70px;">
+			</div>			 
+			<div class="blockMenu">
+				<div class="ZiroBlock">
+					<div class="ZiroBlockInside" style="padding-top: 17px;">						
+						<div id="obl" class="obl"></div>								
+					</div>
+				</div>
+				<div class="FirstBlock">
+					<div class="FirstBlockInside">
+						<ul class="Section" id="SectionMenu">
+							<li><a href="#" id="Biblioteki" onClick="setSection('Biblioteki'); return false;" ><img id="Biblioteki" class="" src="media/ico_menu/biblioteka.png" alt="" width="90px"><br>Библиотеки</a></li>
+							<li><a href="#" id="Shkolyiskusstv" onClick="setSection('Shkolyiskusstv'); return false;" ><img id="Shkolyiskusstv" class="" src="media/ico_menu/muz-shkola.png" alt="" width="90px"><br>Школы искусств</a></li>
+							<li><a href="#" id="ParkiSkveryiZooparki" onClick="setSection('ParkiSkveryiZooparki'); return false;" ><img id="ParkiSkveryiZooparki" class="" src="media/ico_menu/park-skver-zoopark.png" alt="" width="90px"><br>Парки, Скверы и Зоопарки</a></li>
+							<li><a href="#" id="Teatryikino" onClick="setSection('Teatryikino'); return false;" ><img id="Teatryikino" class="" src="media/ico_menu/teatr-kino.png" alt="" width="90px"><br>Театры и кино</a></li>
+							<li><a href="#" id="Kulturnodosugovyeuchrezhdeniy" onClick="setSection('Kulturnodosugovyeuchrezhdeniy'); return false;" ><img id="Kulturnodosugovyeuchrezhdeniy" class="" src="media/ico_menu/5.png" alt="" width="90px"><br>Культурно-досуговые учреждения</a></li>
+							<li><a href="#" id="Muzeiivystavki" onClick="setSection('Muzeiivystavki'); return false;" ><img id="Muzeiivystavki" class="" src="media/ico_menu/muzei-vistavki.png" alt="" width="90px"><br>Музеи и выставки</a></li>
+							<li><a href="#" id="Centrydetskogotvorchestva" onClick="setSection('Centrydetskogotvorchestva'); return false;" ><img id="Centrydetskogotvorchestva" class="" src="media/ico_menu/centr-detskogo-tvorchestva.png" alt="" width="90px"><br>Центры детского творчества<!-- </a> --></li>							
+						</ul>
+					</div>
+					<div id="arrow" style="background:url(media/arrow-down.png) no-repeat; width:32px; height:16px; margin-top: -15px;"></div>					
+				</div>
+				<div class="SecondBlock">				
+					<div class="SecondBlockInside">
+						<div class="SecondBlockName">Районы города</div>
+						<ul class="District" id="DistrictMenu">
+							<li onmouseover="districtOver('Centralnyj');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('Centralnyj');"><img src="media/ico_area/centr.png"></a></li>
+							<li onmouseover="districtOver('kalininskij');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('kalininskij');"><img src="media/ico_area/kalin.png" ></a></li>
+							<li onmouseover="districtOver('Kurchatovskij');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('Kurchatovskij');"><img src="media/ico_area/kurch.png" ></a></li>
+							<li onmouseover="districtOver('Leninskij');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('Leninskij');"><img src="media/ico_area/lenins.png" ></a></li>
+							<li onmouseover="districtOver('Metallurgicheskij');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('Metallurgicheskij');"><img src="media/ico_area/metal.png" ></a></li>
+							<li onmouseover="districtOver('Sovetskij');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('Sovetskij');"><img src="media/ico_area/sovetsk.png" ></a></li>
+							<li onmouseover="districtOver('Traktorozavodskij');" onmouseout="districtOut('');"><a href="#" onClick="LocationSelected('Traktorozavodskij');"><img src="media/ico_area/trakt.png"></a></li>
+						</ul>
+					</div>					
+				</div>
+				<div class="ThirdBlock" >
+					<div class="ThirdBlockInside">						
+						<div style="position: absolute; text-align:center; width:690px; padding-top: 10px;">
+							<div id="ThirdBlockName"></div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</header>		 
+	</body>
+</html>
+
+
